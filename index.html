@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bab's Family Album - Hanuman Ramsingh</title>
+<link rel="stylesheet" href="style.css">
+<style>body{background:#0F0D0A;color:#FFF8EC;font-family:system-ui,Arial,sans-serif;margin:0;font-size:18px}</style>
+</head>
+<body data-theme="dark-gold">
+<header><h1>Bab's Family Album</h1><p>Hanuman Ramsingh Family - Uncle Babs</p>
+<div><label>Theme: <select id="themeSelect"><option value="dark-gold">Rich Dark + Gold</option><option value="teal">Teal</option><option value="purple-black">Purple + Black</option></select></label>
+<span id="modeBadge">Guest View</span> <button id="adminBtn">Admin Login</button> <button id="logoutBtn">Logout Admin</button></div></header>
+<nav><button data-tab="tree">Tree</button><button data-tab="album">Album</button><button data-tab="list">Family List</button><button data-tab="music">Music</button><button data-tab="add" class="admin-only">Add Person</button><button data-tab="errors" class="admin-only">Error Log (Admin)</button><button data-tab="setup">Setup / Vault</button></nav>
+<main>
+<section id="tab-tree"><p id="loadStatus">Loading...</p><div id="tree"></div><p>Lines: parents at top, line down to sibling bar, then down to each child.</p></section>
+<section id="tab-album" hidden><input id="search" placeholder="Search family..."><div id="album"></div></section>
+<section id="tab-list" hidden><div id="list"></div></section>
+<section id="tab-music" hidden>
+<h2>YouTube Player - plays INSIDE this website</h2>
+<input id="ytInput" placeholder="Paste YouTube link or ID"><button onclick="loadYT()">Load & Play in Site</button>
+<div><button onclick="loadYTpreset('Suhani Raat Dhal Chuki Dulari Rafi')">Suhani Raat</button><button onclick="loadYTpreset('Bhajan')">Bhajan</button><button onclick="loadYTpreset('Chutney music Trinidad')">Chutney</button><button onclick="loadYTpreset('Old Bollywood songs')">Old Bollywood</button></div>
+<iframe id="ytPlayer" width="100%" height="315" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2>MP3 Songs - from /songs/ folder</h2><audio id="mp3Player" controls></audio><ul id="playlist"></ul>
+<label>Upload MP3s: <input type="file" id="mp3Upload" accept="audio/mpeg" multiple></label>
+<p>Exact file: <b>Suhani Raat Dhal Chuki Na - Dulari Songs - Suresh - Madhubala - Mohd Rafi.mp3</b><br>Put it at: <code>songs/Suhani Raat Dhal Chuki Na - Dulari Songs - Suresh - Madhubala - Mohd Rafi.mp3</code></p></section>
+<section id="tab-add" hidden><h2>Add Person (Admin only)</h2><input id="fName" placeholder="Name"><input id="fPhotos" placeholder="Photos, comma separated"><input id="fDesc" placeholder="Description / Relation to Babs"><label>Father <select id="fFather"></select></label><label>Mother <select id="fMother"></select></label><label>Spouse <select id="fSpouse"></select></label><button onclick="addPerson()">Save Person - Tree Auto-Places Them</button></section>
+<section id="tab-errors" hidden><h2>Error Log (Admin only)</h2><div id="errorLog"></div></section>
+<section id="tab-setup" hidden><h2>Family Tree Vault - Setup</h2><pre>Family Tree Vault/
+  index.html / style.css / app.js / netlify.toml
+  /images/  /songs/  /data/family.json</pre>
+<p>GitHub: create repo Family-Tree-Vault, upload these files. Netlify: Add new site > Import from GitHub > pick repo > Deploy.</p>
+<button onclick="exportMD()">Export Obsidian MD (Admin)</button> <button onclick="exportJSON()">Export JSON (Admin)</button></section>
+</main>
+<footer><button onclick="openReport()">Report Error (Guest)</button> <a href="mailto:vireshsingh26@protonmail.com?subject=Family%20Tree%20Error%20Report">Email Admin: vireshsingh26@protonmail.com</a></footer>
+<div id="reportModal" hidden><h3>Report Error</h3><input id="rName" placeholder="Your name"><input id="rPerson" placeholder="Person affected"><textarea id="rMsg" placeholder="What is wrong?"></textarea><button onclick="submitReport()">Send Report to Admin</button></div>
+<div id="profileModal" hidden><div id="profileContent"></div><button onclick="closeProfile()">Close</button></div>
+<script src="app.js"></script>
+</body>
+</html>
