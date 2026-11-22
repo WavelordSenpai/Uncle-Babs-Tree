@@ -1,0 +1,6 @@
+[
+  {"id":"raymond","name":"Raymond Ramsingh","relation":"father of Babs","spouse":"boodhani","photos":["raymond-ramsingh-boodhani.jpg"],"desc":"Father of Babs"},
+  {"id":"boodhani","name":"Boodhani Kadiran-Ramsingh","relation":"mother of Babs","spouse":"raymond","photos":["boodhani.jpg"],"desc":"Mother of Babs"},
+  {"id":"babs","name":"Hanuman Ramsingh (Uncle Babs)","relation":"Uncle Babs","father":"raymond","mother":"boodhani","photos":["hanuman-ramsingh.jpg"],"desc":"Babs"},
+  {"id":"lakshmi","name":"Lakshmi Mootiram","relation":"last younger sister of Babs","father":"raymond","mother":"boodhani","spouse":"robin","photos":["lakshmi.jpg","lakshmi1.jpg","lakshmi2.jpg"],"desc":"Last younger sister - SAME PERSON, 3 photos grouped"}
+]
