@@ -1,0 +1,14 @@
+:root{--bg:#0F0D0A;--card:#1E1A14;--accent:#D4AF37;--text:#FFF8EC;--line:#D4AF37}
+body[data-theme="teal"]{--bg:#0B3D3A;--card:#0F4F4A;--accent:#2DD4BF;--text:#FFF;--line:#2DD4BF}
+body[data-theme="purple-black"]{--bg:#0A0A12;--card:#16162A;--accent:#8B5CF6;--text:#EDE9FE;--line:#C4B5FD}
+body{background:var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif;margin:0;font-size:18px}
+header,nav,main,footer{padding:16px}
+button{padding:12px 18px;border-radius:12px;border:1px solid var(--accent);background:var(--card);color:var(--text);font-size:17px;cursor:pointer;margin:4px}
+input,select,textarea{padding:12px;border-radius:10px;width:100%;max-width:520px;margin:6px 0;font-size:17px;background:#fff;color:#111}
+.person{border:2px solid var(--accent);border-radius:16px;padding:12px;text-align:center;background:var(--card);min-width:150px}
+.tree-gen{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.tree-connector{height:28px;border-left:3px solid var(--line);margin:0 auto;width:3px}
+.tree-sibling-bar{height:3px;background:var(--line);margin:0 auto;width:70%}
+.avatar{width:90px;height:90px;border-radius:50%;background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;margin:0 auto;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.admin-only{display:none} body.admin .admin-only{display:inline-block}
