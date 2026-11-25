@@ -1,6 +1,271 @@
 [
-  {"id":"raymond","name":"Raymond Ramsingh","relation":"father of Babs","spouse":"boodhani","photos":["raymond-ramsingh-boodhani.jpg"],"desc":"Father of Babs"},
-  {"id":"boodhani","name":"Boodhani Kadiran-Ramsingh","relation":"mother of Babs","spouse":"raymond","photos":["boodhani.jpg"],"desc":"Mother of Babs"},
-  {"id":"babs","name":"Hanuman Ramsingh (Uncle Babs)","relation":"Uncle Babs","father":"raymond","mother":"boodhani","photos":["hanuman-ramsingh.jpg"],"desc":"Babs"},
-  {"id":"lakshmi","name":"Lakshmi Mootiram","relation":"last younger sister of Babs","father":"raymond","mother":"boodhani","spouse":"robin","photos":["lakshmi.jpg","lakshmi1.jpg","lakshmi2.jpg"],"desc":"Last younger sister - SAME PERSON, 3 photos grouped"}
+  {
+    "id": "raymond",
+    "name": "Raymond Ramsingh",
+    "relation": "Father of Uncle Babs",
+    "spouse": "boodhani",
+    "photos": ["raymond-ramsingh-boodhani.jpg"],
+    "desc": "Patriarch of the Ramsingh family and father of Hanuman (Uncle Babs) and Lakshmi."
+  },
+  {
+    "id": "boodhani",
+    "name": "Boodhani Kadiran-Ramsingh",
+    "relation": "Mother of Uncle Babs",
+    "spouse": "raymond",
+    "photos": ["boodhani.jpg", "raymond-ramsingh-boodhani.jpg"],
+    "desc": "Matriarch of the Ramsingh family and mother of Hanuman (Uncle Babs) and Lakshmi."
+  },
+  {
+    "id": "babs",
+    "name": "Hanuman Ramsingh (Uncle Babs)",
+    "relation": "Uncle Babs",
+    "father": "raymond",
+    "mother": "boodhani",
+    "photos": ["hanuman-ramsingh.jpg", "babs-bhavita.jpg", "4 sons of babs.jpg"],
+    "desc": "Hanuman Ramsingh, affectionately known as Uncle Babs."
+  },
+  {
+    "id": "lakshmi",
+    "name": "Lakshmi Mootiram",
+    "relation": "Younger Sister of Uncle Babs",
+    "father": "raymond",
+    "mother": "boodhani",
+    "spouse": "robin",
+    "photos": ["lakshmi.jpg", "lakshmi1.jpg", "lakshmi2.jpg", "robin-lakshmi.jpg"],
+    "desc": "Last younger sister of Uncle Babs."
+  },
+  {
+    "id": "robin",
+    "name": "Robin Mootiram",
+    "relation": "Husband of Lakshmi",
+    "spouse": "lakshmi",
+    "photos": ["robin-lakshmi.jpg"],
+    "desc": "Spouse of Lakshmi Mootiram."
+  },
+  {
+    "id": "bhavita",
+    "name": "Bhavita",
+    "relation": "Ramsingh Family",
+    "photos": ["bhavita.jpg", "babs-bhavita.jpg"],
+    "desc": "Pictured individually and alongside Uncle Babs."
+  },
+  {
+    "id": "sayed",
+    "name": "Sayed",
+    "relation": "Family Member",
+    "spouse": "radha",
+    "photos": ["sayed.jpg", "radha-sayed.jpg"],
+    "desc": "Pictured individually and with Radha."
+  },
+  {
+    "id": "radha",
+    "name": "Radha",
+    "relation": "Family Member",
+    "spouse": "sayed",
+    "photos": ["radha-sayed.jpg"],
+    "desc": "Pictured with Sayed in the family album."
+  },
+  {
+    "id": "shanti",
+    "name": "Shanti",
+    "relation": "Family Member",
+    "photos": ["shanti.jpg", "shanti1.jpg"],
+    "desc": "Ramsingh family archive portraits."
+  },
+  {
+    "id": "amrit",
+    "name": "Amrit",
+    "relation": "Family Member",
+    "photos": ["amrit.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "anil",
+    "name": "Anil",
+    "relation": "Family Member",
+    "photos": ["anil.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "bago",
+    "name": "Bago",
+    "relation": "Family Member",
+    "photos": ["bago.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "carol",
+    "name": "Carol",
+    "relation": "Family Member",
+    "photos": ["carol.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "indra",
+    "name": "Indra",
+    "relation": "Family Member",
+    "photos": ["indra.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "junie",
+    "name": "Junie",
+    "relation": "Family Member",
+    "photos": ["junie.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "kavir",
+    "name": "Kavir",
+    "relation": "Family Member",
+    "photos": ["kavir.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "kavita",
+    "name": "Kavita",
+    "relation": "Family Member",
+    "photos": ["kavita.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "kaylee",
+    "name": "Kaylee",
+    "relation": "Family Member",
+    "photos": ["kaylee.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "kemo",
+    "name": "Kemo",
+    "relation": "Family Member",
+    "photos": ["kemo.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "keshan",
+    "name": "Keshan",
+    "relation": "Family Member",
+    "photos": ["keshan.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "kubhir",
+    "name": "Kubhir",
+    "relation": "Family Member",
+    "photos": ["kubhir.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "leela",
+    "name": "Leela",
+    "relation": "Family Member",
+    "photos": ["leela.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "mikayla",
+    "name": "Mikayla",
+    "relation": "Family Member",
+    "photos": ["mikayla.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "nalini",
+    "name": "Nalini",
+    "relation": "Family Member",
+    "photos": ["nalini.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "nari",
+    "name": "Nari",
+    "relation": "Family Member",
+    "photos": ["nari.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "neera",
+    "name": "Neera",
+    "relation": "Family Member",
+    "photos": ["neera.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "rakesh",
+    "name": "Rakesh",
+    "relation": "Family Member",
+    "photos": ["rakesh.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "ridge",
+    "name": "Ridge",
+    "relation": "Family Member",
+    "photos": ["ridge.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "sanjeev",
+    "name": "Sanjeev",
+    "relation": "Family Member",
+    "photos": ["sanjeev.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "sharda",
+    "name": "Sharda",
+    "relation": "Family Member",
+    "photos": ["sharda.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "shastri",
+    "name": "Shastri",
+    "relation": "Family Member",
+    "photos": ["shastri.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "shivana",
+    "name": "Shivana",
+    "relation": "Family Member",
+    "photos": ["shivana.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "sudesh",
+    "name": "Sudesh",
+    "relation": "Family Member",
+    "photos": ["sudesh.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "sunil",
+    "name": "Sunil",
+    "relation": "Family Member",
+    "photos": ["sunil.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "varun",
+    "name": "Varun",
+    "relation": "Family Member",
+    "photos": ["varun.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "vayu",
+    "name": "Vayu",
+    "relation": "Family Member",
+    "photos": ["vayu.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  },
+  {
+    "id": "vedhi",
+    "name": "Vedhi",
+    "relation": "Family Member",
+    "photos": ["vedhi.jpg"],
+    "desc": "Ramsingh family archive portrait."
+  }
 ]

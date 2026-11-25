@@ -1,40 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bab's Family Album - Hanuman Ramsingh</title>
-<link rel="stylesheet" href="style.css">
-<style>body{background:#0F0D0A;color:#FFF8EC;font-family:system-ui,Arial,sans-serif;margin:0;font-size:18px}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bab's Family Album - Hanuman Ramsingh</title>
+  <meta name="description" content="Hanuman Ramsingh Family Album and Tree - interactive genealogy, heirloom portrait gallery, YouTube theater, and MP3 jukebox.">
+  <meta property="og:title" content="Bab's Family Album">
+  <meta property="og:description" content="Hanuman Ramsingh Family Album and Tree">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="dark-gold">
-<header><h1>Bab's Family Album</h1><p>Hanuman Ramsingh Family - Uncle Babs</p>
-<div><label>Theme: <select id="themeSelect"><option value="dark-gold">Rich Dark + Gold</option><option value="teal">Teal</option><option value="purple-black">Purple + Black</option></select></label>
-<span id="modeBadge">Guest View</span> <button id="adminBtn">Admin Login</button> <button id="logoutBtn">Logout Admin</button></div></header>
-<nav><button data-tab="tree">Tree</button><button data-tab="album">Album</button><button data-tab="list">Family List</button><button data-tab="music">Music</button><button data-tab="add" class="admin-only">Add Person</button><button data-tab="errors" class="admin-only">Error Log (Admin)</button><button data-tab="setup">Setup / Vault</button></nav>
-<main>
-<section id="tab-tree"><p id="loadStatus">Loading...</p><div id="tree"></div><p>Lines: parents at top, line down to sibling bar, then down to each child.</p></section>
-<section id="tab-album" hidden><input id="search" placeholder="Search family..."><div id="album"></div></section>
-<section id="tab-list" hidden><div id="list"></div></section>
-<section id="tab-music" hidden>
-<h2>YouTube Player - plays INSIDE this website</h2>
-<input id="ytInput" placeholder="Paste YouTube link or ID"><button onclick="loadYT()">Load & Play in Site</button>
-<div><button onclick="loadYTpreset('Suhani Raat Dhal Chuki Dulari Rafi')">Suhani Raat</button><button onclick="loadYTpreset('Bhajan')">Bhajan</button><button onclick="loadYTpreset('Chutney music Trinidad')">Chutney</button><button onclick="loadYTpreset('Old Bollywood songs')">Old Bollywood</button></div>
-<iframe id="ytPlayer" width="100%" height="315" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h2>MP3 Songs - from /songs/ folder</h2><audio id="mp3Player" controls></audio><ul id="playlist"></ul>
-<label>Upload MP3s: <input type="file" id="mp3Upload" accept="audio/mpeg" multiple></label>
-<p>Exact file: <b>Suhani Raat Dhal Chuki Na - Dulari Songs - Suresh - Madhubala - Mohd Rafi.mp3</b><br>Put it at: <code>songs/Suhani Raat Dhal Chuki Na - Dulari Songs - Suresh - Madhubala - Mohd Rafi.mp3</code></p></section>
-<section id="tab-add" hidden><h2>Add Person (Admin only)</h2><input id="fName" placeholder="Name"><input id="fPhotos" placeholder="Photos, comma separated"><input id="fDesc" placeholder="Description / Relation to Babs"><label>Father <select id="fFather"></select></label><label>Mother <select id="fMother"></select></label><label>Spouse <select id="fSpouse"></select></label><button onclick="addPerson()">Save Person - Tree Auto-Places Them</button></section>
-<section id="tab-errors" hidden><h2>Error Log (Admin only)</h2><div id="errorLog"></div></section>
-<section id="tab-setup" hidden><h2>Family Tree Vault - Setup</h2><pre>Family Tree Vault/
-  index.html / style.css / app.js / netlify.toml
-  /images/  /songs/  /data/family.json</pre>
-<p>GitHub: create repo Family-Tree-Vault, upload these files. Netlify: Add new site > Import from GitHub > pick repo > Deploy.</p>
-<button onclick="exportMD()">Export Obsidian MD (Admin)</button> <button onclick="exportJSON()">Export JSON (Admin)</button></section>
-</main>
-<footer><button onclick="openReport()">Report Error (Guest)</button> <a href="mailto:vireshsingh26@protonmail.com?subject=Family%20Tree%20Error%20Report">Email Admin: vireshsingh26@protonmail.com</a></footer>
-<div id="reportModal" hidden><h3>Report Error</h3><input id="rName" placeholder="Your name"><input id="rPerson" placeholder="Person affected"><textarea id="rMsg" placeholder="What is wrong?"></textarea><button onclick="submitReport()">Send Report to Admin</button></div>
-<div id="profileModal" hidden><div id="profileContent"></div><button onclick="closeProfile()">Close</button></div>
-<script src="app.js"></script>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#tree" class="brand" data-nav-brand>Bab's Family Album</a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <button type="button" class="nav-link is-active" data-tab="tree">Tree</button>
+        <button type="button" class="nav-link" data-tab="album">Album</button>
+        <button type="button" class="nav-link" data-tab="list">Directory</button>
+        <button type="button" class="nav-link" data-tab="music">Music &amp; Video</button>
+        <button type="button" class="nav-link" data-tab="vault">Vault</button>
+      </nav>
+      <div class="topbar-action">
+        <button type="button" id="adminBtn" class="btn-primary">Admin Access</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="archive-hero">
+    <div class="container archive-hero-grid">
+      <div class="archive-hero-copy">
+        <p class="hero-kicker">Hanuman Ramsingh · Uncle Babs Heritage Archive</p>
+        <h1 class="hero-title">The Ramsingh Family Tree &amp; Keepsake Album</h1>
+        <p class="hero-lead">Preserving generations of family portraits, lineages, and classic melodies in one living heirloom.</p>
+      </div>
+      <div class="archive-hero-controls">
+        <div class="control-row">
+          <label class="field-inline" for="themeSelect">
+            <span class="field-label">Theme</span>
+            <select id="themeSelect">
+              <option value="dark-gold">Rich Dark + Gold</option>
+              <option value="archival-paper">Archival Paper</option>
+              <option value="teal">Heritage Teal</option>
+              <option value="purple-black">Plum + Obsidian</option>
+            </select>
+          </label>
+          <button type="button" class="btn-ghost" id="quickMusicBtn">Open Music &amp; YouTube</button>
+        </div>
+        <div class="mode-line">
+          <span id="modeBadge">Guest View</span>
+          <span aria-hidden="true">·</span>
+          <button type="button" class="link-btn" id="logoutBtn" hidden>Sign out of Admin</button>
+          <button type="button" class="link-btn" id="heroReportBtn">Report a correction</button>
+        </div>
+      </div>
+    </div>
+    <div class="container archive-metrics" id="archiveMetrics" aria-live="polite">
+      <span><strong class="mono-num" id="statPeople">0</strong> family members</span>
+      <span aria-hidden="true">·</span>
+      <span><strong class="mono-num" id="statPhotos">0</strong> archived portraits</span>
+      <span aria-hidden="true">·</span>
+      <span><strong class="mono-num" id="statTracks">0</strong> MP3 tracks</span>
+      <span aria-hidden="true">·</span>
+      <span><strong class="mono-num" id="statVideos">0</strong> YouTube favorites</span>
+    </div>
+  </section>
+
+  <main class="container main-content">
+    <!-- TAB: TREE -->
+    <section id="tab-tree" class="tab-panel">
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 class="section-heading">Genealogical Lineage</h2>
+          <p class="muted-text" id="loadStatus">Loading family archive...</p>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="treeSearch" class="input-compact" placeholder="Find person in tree..." aria-label="Find person in tree">
+          <div class="zoom-group" role="group" aria-label="Tree zoom controls">
+            <button type="button" class="btn-outline btn-sm" id="zoomOutBtn" aria-label="Zoom out">−</button>
+            <span class="mono-num zoom-readout" id="zoomReadout">100%</span>
+            <button type="button" class="btn-outline btn-sm" id="zoomInBtn" aria-label="Zoom in">+</button>
+            <button type="button" class="btn-outline btn-sm" id="zoomResetBtn">Reset</button>
+          </div>
+          <button type="button" class="btn-outline btn-sm admin-only" id="treeAddBtn">+ Add Member</button>
+        </div>
+      </div>
+
+      <div class="tree-viewport" id="treeViewport">
+        <div class="tree-canvas" id="tree"></div>
+      </div>
+      <p class="tree-legend">Couples are paired side by side; vertical lines trace down to sibling bars and descendants. Click any portrait to inspect photos or connections.</p>
+
+      <div class="unlinked-section" id="unlinkedSection" hidden>
+        <div class="section-divider"></div>
+        <div class="panel-toolbar">
+          <div>
+            <h3 class="subsection-heading">Archive Members Ready to Connect</h3>
+            <p class="muted-text">Portraits preserved in the family album awaiting parent or spouse links in the tree.</p>
+          </div>
+        </div>
+        <div class="unlinked-grid" id="unlinkedGrid"></div>
+      </div>
+    </section>
+
+    <!-- TAB: ALBUM -->
+    <section id="tab-album" class="tab-panel" hidden>
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 class="section-heading">Family Portrait Album</h2>
+          <p class="muted-text" id="albumCountLabel">Showing all archived portraits</p>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="search" class="input-compact" placeholder="Search name, relation, or notes..." aria-label="Search family album">
+          <div class="segmented" role="group" aria-label="Album view mode">
+            <button type="button" class="seg-btn is-active" data-album-view="people">By Person</button>
+            <button type="button" class="seg-btn" data-album-view="photos">All Photos</button>
+          </div>
+          <select id="albumFilter" class="select-compact" aria-label="Filter portraits">
+            <option value="all">All Members</option>
+            <option value="connected">Connected in Tree</option>
+            <option value="multi">Multiple Photos</option>
+            <option value="unlinked">Awaiting Placement</option>
+          </select>
+        </div>
+      </div>
+      <div id="album" class="album-grid"></div>
+    </section>
+
+    <!-- TAB: DIRECTORY -->
+    <section id="tab-list" class="tab-panel" hidden>
+      <div class="panel-toolbar">
+        <div class="toolbar-left">
+          <h2 class="section-heading">Family Directory</h2>
+          <p class="muted-text">Complete index of every member, lineage link, and portrait count.</p>
+        </div>
+        <div class="toolbar-actions">
+          <input type="search" id="listSearch" class="input-compact" placeholder="Filter directory..." aria-label="Filter directory">
+          <select id="listSort" class="select-compact" aria-label="Sort directory">
+            <option value="default">Archive Order</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="generation">Generation</option>
+            <option value="photos">Most Photos</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="directory-table">
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>Relation</th>
+              <th>Parents / Spouse</th>
+              <th>Generation</th>
+              <th class="num-col">Photos</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="list"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB: MUSIC & VIDEO -->
+    <section id="tab-music" class="tab-panel" hidden>
+      <div class="media-grid">
+        <!-- YouTube Theater -->
+        <div class="media-column">
+          <div class="section-head-compact">
+            <div>
+              <h2 class="section-heading">YouTube Theater</h2>
+              <p class="muted-text">Search YouTube songs directly or paste any YouTube link, ID, or playlist to play inside this site.</p>
+            </div>
+          </div>
+
+          <form id="ytForm" class="yt-search-bar">
+            <input id="ytInput" type="text" placeholder="Search song (e.g. Suhani Raat Rafi) or paste YouTube URL / ID..." aria-label="YouTube search or link">
+            <button type="submit" class="btn-primary">Search / Play</button>
+          </form>
+
+          <div class="preset-row" role="group" aria-label="Music presets">
+            <button type="button" class="btn-outline btn-sm" data-yt-preset="Suhani Raat Dhal Chuki Dulari Mohd Rafi">Suhani Raat · Rafi</button>
+            <button type="button" class="btn-outline btn-sm" data-yt-preset="Hanuman Chalisa Bhajan Hariharan">Bhajan &amp; Chalisa</button>
+            <button type="button" class="btn-outline btn-sm" data-yt-preset="Sundar Popo Trinidad Chutney music">Trinidad Chutney</button>
+            <button type="button" class="btn-outline btn-sm" data-yt-preset="Old Bollywood evergreen Mohd Rafi Lata songs">Old Bollywood</button>
+          </div>
+
+          <div class="yt-frame-wrap">
+            <iframe
+              id="ytPlayer"
+              title="Family YouTube Player"
+              src=""
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+            <div class="yt-empty-overlay" id="ytEmptyOverlay">
+              <p class="yt-empty-title">Select a family favorite or search YouTube above</p>
+              <p class="muted-text">Plays directly inside the album without leaving the page.</p>
+            </div>
+          </div>
+
+          <div class="yt-now-bar" id="ytNowBar" hidden>
+            <div class="yt-now-meta">
+              <strong id="ytNowTitle">Now Playing</strong>
+              <span class="muted-text" id="ytNowAuthor">YouTube</span>
+            </div>
+            <button type="button" class="btn-outline btn-sm" id="saveYtQueueBtn">Save to Family Queue</button>
+          </div>
+
+          <div id="ytSearchResultsWrap" class="yt-results-wrap" hidden>
+            <div class="subsection-row">
+              <h3 class="subsection-heading">Search Results</h3>
+              <button type="button" class="link-btn" id="clearYtResultsBtn">Clear</button>
+            </div>
+            <div id="ytSearchResults" class="yt-results-grid"></div>
+          </div>
+
+          <div class="yt-queue-wrap">
+            <h3 class="subsection-heading">Saved Family YouTube Queue</h3>
+            <ul id="ytQueueList" class="track-list"></ul>
+          </div>
+        </div>
+
+        <!-- MP3 Studio & Upload -->
+        <div class="media-column">
+          <div class="section-head-compact">
+            <div>
+              <h2 class="section-heading">MP3 Audio Jukebox</h2>
+              <p class="muted-text">Upload MP3, WAV, M4A, or OGG tracks to the family library for continuous playback across all tabs.</p>
+            </div>
+          </div>
+
+          <div class="audio-studio-card">
+            <canvas id="audioVisualizer" class="audio-visualizer" width="560" height="72" aria-hidden="true"></canvas>
+            <div class="audio-now-info">
+              <p class="audio-title" id="audioTrackTitle">No MP3 Track Selected</p>
+              <p class="muted-text" id="audioTrackArtist">Upload MP3 files below to start listening</p>
+            </div>
+
+            <div class="audio-seek-row">
+              <span class="mono-num time-label" id="audioCurrentTime">0:00</span>
+              <input type="range" id="audioSeek" min="0" max="100" value="0" step="0.1" aria-label="Seek audio position">
+              <span class="mono-num time-label" id="audioDuration">0:00</span>
+            </div>
+
+            <div class="audio-controls-row">
+              <div class="audio-transport">
+                <button type="button" class="btn-outline btn-sm" id="audioShuffleBtn" title="Shuffle">Shuffle</button>
+                <button type="button" class="btn-outline btn-sm" id="audioPrevBtn" title="Previous track">Prev</button>
+                <button type="button" class="btn-primary" id="audioPlayBtn">Play</button>
+                <button type="button" class="btn-outline btn-sm" id="audioNextBtn" title="Next track">Next</button>
+                <button type="button" class="btn-outline btn-sm" id="audioRepeatBtn" title="Repeat">Repeat</button>
+              </div>
+              <div class="audio-volume">
+                <label for="audioVolume" class="muted-text">Vol</label>
+                <input type="range" id="audioVolume" min="0" max="1" step="0.02" value="0.9" aria-label="Audio volume">
+              </div>
+            </div>
+            <audio id="mp3Player" preload="metadata" crossorigin="anonymous"></audio>
+          </div>
+
+          <div id="mp3Dropzone" class="upload-dropzone" tabindex="0" role="button" aria-label="Upload MP3 or audio files">
+            <input type="file" id="mp3Upload" accept=".mp3,.wav,.ogg,.m4a,.aac,audio/*" multiple hidden>
+            <p class="upload-title">Drop MP3 files here, or click to browse</p>
+            <p class="muted-text">Supports MP3, WAV, M4A, OGG, AAC (up to 35 MB per file) · Saved directly to the server playlist</p>
+            <div class="upload-artist-row" id="uploadArtistWrap">
+              <input type="text" id="mp3ArtistInput" class="input-compact" placeholder="Optional artist / album note (e.g. Mohd Rafi)" aria-label="Optional artist name">
+              <button type="button" class="btn-outline btn-sm" id="mp3BrowseBtn">Choose Audio Files</button>
+            </div>
+            <p class="muted-text" id="mp3UploadStatus" aria-live="polite"></p>
+          </div>
+
+          <div class="playlist-wrap">
+            <div class="subsection-row">
+              <h3 class="subsection-heading">Uploaded Audio Playlist</h3>
+              <span class="muted-text mono-num" id="playlistCount">0 tracks</span>
+            </div>
+            <ul id="playlist" class="track-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: VAULT & ADMIN -->
+    <section id="tab-vault" class="tab-panel" hidden>
+      <div class="vault-grid">
+        <div class="vault-card">
+          <h2 class="section-heading">Add Family Member</h2>
+          <p class="muted-text">Sign in as Admin to add new people, link parents or spouses, and upload portrait photos.</p>
+          <div class="admin-gate-notice" id="vaultAdminNotice">
+            <p>Admin access is required to save new members or edit portraits.</p>
+            <button type="button" class="btn-primary" id="vaultLoginBtn">Sign In as Admin</button>
+          </div>
+
+          <form id="addPersonForm" class="stack-form admin-only">
+            <label>Full Name
+              <input id="fName" type="text" required placeholder="e.g. Sunil Ramsingh">
+            </label>
+            <label>Relation to Uncle Babs
+              <input id="fRelation" type="text" placeholder="e.g. Son of Uncle Babs">
+            </label>
+            <label>Notes / Biography
+              <textarea id="fDesc" rows="3" placeholder="Memories, birth year, or family notes..."></textarea>
+            </label>
+            <div class="form-row-2">
+              <label>Father
+                <select id="fFather"></select>
+              </label>
+              <label>Mother
+                <select id="fMother"></select>
+              </label>
+            </div>
+            <label>Spouse
+              <select id="fSpouse"></select>
+            </label>
+            <label>Existing Photo Filenames (comma separated)
+              <input id="fPhotos" type="text" placeholder="e.g. sunil.jpg">
+            </label>
+            <label>Or Upload New Portrait Photos
+              <input id="fPhotoFiles" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/*" multiple>
+            </label>
+            <button type="submit" class="btn-primary">Save Member &amp; Update Tree</button>
+          </form>
+        </div>
+
+        <div class="vault-card">
+          <h2 class="section-heading">Archive Backup &amp; Export</h2>
+          <p class="muted-text">Download the entire Ramsingh family dataset for Obsidian notes, JSON backup, or printing.</p>
+          <div class="export-actions">
+            <button type="button" class="btn-outline" id="exportJsonBtn">Download family.json</button>
+            <button type="button" class="btn-outline" id="exportMdBtn">Export Obsidian Markdown (.md)</button>
+            <button type="button" class="btn-outline" id="printTreeBtn">Print Family Tree</button>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <h3 class="subsection-heading">Correction Reports</h3>
+          <p class="muted-text" id="reportsSummary">Guests can submit corrections from any profile or the footer.</p>
+          <div id="errorLog" class="reports-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="muted-text">Bab's Family Album · Hanuman Ramsingh Heritage Collection</p>
+      <div class="footer-actions">
+        <button type="button" class="btn-outline btn-sm" id="footerReportBtn">Report Error / Correction</button>
+        <a class="link-btn" href="mailto:vireshsingh26@protonmail.com?subject=Family%20Tree%20Error%20Report">Email Archive Keeper</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Persistent Bottom Mini-Player -->
+  <div id="miniPlayer" class="mini-player" hidden aria-label="Mini audio player">
+    <div class="container mini-player-inner">
+      <div class="mini-player-meta">
+        <strong id="miniTitle">Track Title</strong>
+        <span class="muted-text" id="miniArtist">Artist</span>
+      </div>
+      <div class="mini-player-controls">
+        <button type="button" class="btn-outline btn-sm" id="miniPrevBtn">Prev</button>
+        <button type="button" class="btn-primary btn-sm" id="miniPlayBtn">Play</button>
+        <button type="button" class="btn-outline btn-sm" id="miniNextBtn">Next</button>
+        <span class="mono-num mini-time" id="miniTime">0:00</span>
+        <button type="button" class="link-btn" id="miniOpenMusicBtn">Open Player</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile & Photo Lightbox Modal -->
+  <div id="profileModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal-card modal-wide">
+      <button type="button" class="modal-close" id="closeProfileBtn" aria-label="Close profile">✕</button>
+      <div id="profileContent"></div>
+    </div>
+  </div>
+
+  <!-- Admin Auth / Setup Modal -->
+  <div id="adminModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="closeAdminBtn" aria-label="Close admin modal">✕</button>
+      <h2 id="adminModalTitle" class="section-heading">Admin Access</h2>
+      <p id="adminModalDesc" class="muted-text"></p>
+      <form id="adminAuthForm" class="stack-form">
+        <label id="adminPassLabel">Admin Passcode
+          <input id="adminPassInput" type="password" required minlength="4" autocomplete="current-password" placeholder="Enter passcode">
+        </label>
+        <label id="adminConfirmWrap" hidden>Confirm Passcode
+          <input id="adminConfirmInput" type="password" minlength="4" autocomplete="new-password" placeholder="Re-enter passcode">
+        </label>
+        <p class="form-error" id="adminAuthError" hidden></p>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary" id="adminSubmitBtn">Unlock Admin Mode</button>
+          <button type="button" class="btn-outline" id="cancelAdminBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Person Modal (Admin) -->
+  <div id="editPersonModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="closeEditBtn" aria-label="Close edit modal">✕</button>
+      <h2 id="editModalTitle" class="section-heading">Edit Family Member</h2>
+      <form id="editPersonForm" class="stack-form">
+        <input type="hidden" id="eId">
+        <label>Full Name
+          <input id="eName" type="text" required>
+        </label>
+        <label>Relation
+          <input id="eRelation" type="text">
+        </label>
+        <label>Description / Notes
+          <textarea id="eDesc" rows="3"></textarea>
+        </label>
+        <div class="form-row-2">
+          <label>Father
+            <select id="eFather"></select>
+          </label>
+          <label>Mother
+            <select id="eMother"></select>
+          </label>
+        </div>
+        <label>Spouse
+          <select id="eSpouse"></select>
+        </label>
+        <label>Photos (comma-separated filenames)
+          <input id="ePhotos" type="text">
+        </label>
+        <label>Upload Additional Portrait(s)
+          <input id="ePhotoFiles" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/*" multiple>
+        </label>
+        <div class="modal-actions space-between">
+          <button type="button" class="btn-danger" id="deletePersonBtn">Delete Member</button>
+          <div class="modal-actions">
+            <button type="button" class="btn-outline" id="cancelEditBtn">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Guest Report Modal -->
+  <div id="reportModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="closeReportBtn" aria-label="Close report modal">✕</button>
+      <h2 id="reportModalTitle" class="section-heading">Report Correction</h2>
+      <p class="muted-text">Help keep the Ramsingh family archive accurate. Your note goes directly to the archive log.</p>
+      <form id="reportForm" class="stack-form">
+        <label>Your Name
+          <input id="rName" type="text" placeholder="Your name">
+        </label>
+        <label>Person Affected
+          <input id="rPerson" type="text" placeholder="Name of family member">
+        </label>
+        <label>What needs correcting?
+          <textarea id="rMsg" rows="4" required placeholder="Describe the spelling, date, photo, or relationship update..."></textarea>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn-outline" id="cancelReportBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Submit Correction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Stack -->
+  <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
